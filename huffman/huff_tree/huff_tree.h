@@ -11,10 +11,11 @@ struct huff_node {
     HUFF_NODE *next, *right, *left;
 };
 
-HUFF_NODE *create_huff_node(long long int frequency, unsigned char *key, HUFF_NODE *left, HUFF_NODE *right) {
+HUFF_NODE *create_huff_node(long long int frequency, unsigned char key, HUFF_NODE *left, HUFF_NODE *right) {
     HUFF_NODE *new_huff_node = (HUFF_NODE *)malloc(sizeof(HUFF_NODE));
+    // unsigned char *ch = (unsigned char *)&key;
     new_huff_node->frequency = frequency;
-    new_huff_node->key = key;
+    new_huff_node->key = &key;
     new_huff_node->left = left;
     new_huff_node->right = right;
     printf("na chn: %c\n", *(unsigned char *)new_huff_node->key);

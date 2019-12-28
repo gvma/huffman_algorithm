@@ -7,37 +7,29 @@
 typedef struct heap HEAP;
 
 struct heap {
-    HUFF_NODE *data[256]; // an array that will store all elements of the heap
+    HUFF_NODE *data[257]; // an array that will store all elements of the heap
     int size; //the size of the heap
 };
-
-/** @param x: a pointer to the data of a type long long int*/
-/** @param y: a pointer to the data of a type long long int*/
-void swap(HUFF_NODE **x, HUFF_NODE **y) {
-    HUFF_NODE aux = **x;
-    **x = **y;
-    **y = aux;
-}
 
 /** @param heap: a pointer to the heap */
 /** @param i: the index that you currently are in the heap */
 /** @return returns the parent node of the heap */
 int get_parent_index(HEAP *heap, int i) {
-    return i / 2;
+    return i >> 1;
 }
 
 /** @param heap: a pointer to the heap */
 /** @param i: the index that you currently are in the heap */
 /** @return returns the left child node of the heap */
 int get_left_index(HEAP *heap, int i) {
-    return i * 2;
+    return i << 1;
 }
 
 /** @param heap: the heap */
 /** @param i: the index that you currently are in the heap */
 /** @return returns the right child node of the heap */
 int get_right_index(HEAP *heap, int i) {
-    return i * 2 + 1;
+    return (i << 1) + 1;
 }
 
 /** @param heap: a pointer to the heap */
@@ -58,11 +50,18 @@ bool is_empty(HEAP *heap) {
 HEAP *create_heap() {
     HEAP *new_heap = (HEAP*)malloc(sizeof(HEAP));
     int i;
-    // new_heap->data = malloc(sizeof(HUFF_NODE) * 256);
-    for (i = 0; i < 256; ++i) {
+    for (i = 1; i <= 256; ++i) {
         new_heap->data[i] = NULL;
     }
     return new_heap;
+}
+
+/** @param x: a pointer to the data of a type long long int*/
+/** @param y: a pointer to the data of a type long long int*/
+void swap(HUFF_NODE **x, HUFF_NODE **y) {
+    HUFF_NODE aux = **x;
+    **x = **y;
+    **y = aux;
 }
 
 /** @param heap: the heap */
@@ -113,19 +112,22 @@ HUFF_NODE *dequeue(HEAP *heap) {
 /** @param heap: a pointer to the heap */
 /** @param item: an item that you want to enqueue in the heap*/
 void enqueue(HEAP *heap, HUFF_NODE *item) {
+    printf("Antes:\n");
+    print_heap(heap);
     if (heap->size >= 100000) {
         printf("Heap Overflow! Cannot enqueue!\n");
     } else {
         heap->data[++heap->size] = item;
         int key_index = heap->size;
         int parent_index = get_parent_index(heap, key_index);
-        printf("%d parent index and (%lld, %c)\n", parent_index, heap->data[heap->size]->frequency, *(unsigned char *)heap->data[heap->size]->key);
-        while (parent_index >= 1 && heap->data[key_index]->frequency < heap->data[parent_index]->frequency) {
-            printf("Aqui dentro: (%lld, %c) and (%lld, %c)\n", heap->data[key_index]->frequency, *(unsigned char *)heap->data[key_index]->key, heap->data[parent_index]->frequency, *(unsigned char *)heap->data[parent_index]->key);
+        if (parent_index) {
+            printf("While Comparisons: %d %d\n", parent_index >= 1, heap->data[key_index]->frequency > heap->data[parent_index]->frequency);
+        }
+        printf("Depois:\n");
+        print_heap(heap);
+        while (parent_index >= 1 && heap->data[key_index]->frequency > heap->data[parent_index]->frequency) {
+            printf("eu to entrando na swap????\n");
             swap(&heap->data[key_index], &heap->data[parent_index]);
-            // HUFF_NODE *aux = heap->data[parent_index];
-            // heap->data[parent_index] = heap->data[key_index];
-            // heap->data[key_index] = aux;
             key_index = parent_index;
             parent_index = get_parent_index(heap, key_index);
         }
