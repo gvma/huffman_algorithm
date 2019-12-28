@@ -23,21 +23,21 @@ void swap(HUFF_NODE **x, HUFF_NODE **y) {
 /** @param i: the index that you currently are in the heap */
 /** @return returns the parent node of the heap */
 int get_parent_index(HEAP *heap, int i) {
-    return i >> 1;
+    return i / 2;
 }
 
 /** @param heap: a pointer to the heap */
 /** @param i: the index that you currently are in the heap */
 /** @return returns the left child node of the heap */
 int get_left_index(HEAP *heap, int i) {
-    return i << 1;
+    return i * 2;
 }
 
 /** @param heap: the heap */
 /** @param i: the index that you currently are in the heap */
 /** @return returns the right child node of the heap */
 int get_right_index(HEAP *heap, int i) {
-    return (i << 1) + 1;
+    return i * 2 + 1;
 }
 
 /** @param heap: a pointer to the heap */
@@ -87,11 +87,10 @@ void max_heapify(HEAP *heap, int i) {
 }
 
 void print_heap(HEAP *queue) {
-    printf("null: %d\n", queue->size);
     int i;
     printf("Printando Fila: \n");
-    for (i = 0; i < queue->size; ++i) {
-        printf("%c -> ", *(unsigned char *)queue->data[i]->key);
+    for (i = 1; i <= queue->size; ++i) {
+        printf("(%c, %lld) -> ", *(unsigned char *)queue->data[i]->key, queue->data[i]->frequency);
     }
     printf("\n");
 }
@@ -107,7 +106,6 @@ HUFF_NODE *dequeue(HEAP *heap) {
         heap->data[1] = heap->data[heap->size];
         --heap->size;
         max_heapify(heap, 1);
-        printf("DENTRO DA DEQUEUE %c\n", *(unsigned char *)heap->data[2]->key);
         return item;
     }
 }
@@ -121,8 +119,13 @@ void enqueue(HEAP *heap, HUFF_NODE *item) {
         heap->data[++heap->size] = item;
         int key_index = heap->size;
         int parent_index = get_parent_index(heap, key_index);
-        while (parent_index >= 1 && heap->data[key_index]->frequency > heap->data[parent_index]->frequency) {
+        printf("%d parent index and (%lld, %c)\n", parent_index, heap->data[heap->size]->frequency, *(unsigned char *)heap->data[heap->size]->key);
+        while (parent_index >= 1 && heap->data[key_index]->frequency < heap->data[parent_index]->frequency) {
+            printf("Aqui dentro: (%lld, %c) and (%lld, %c)\n", heap->data[key_index]->frequency, *(unsigned char *)heap->data[key_index]->key, heap->data[parent_index]->frequency, *(unsigned char *)heap->data[parent_index]->key);
             swap(&heap->data[key_index], &heap->data[parent_index]);
+            // HUFF_NODE *aux = heap->data[parent_index];
+            // heap->data[parent_index] = heap->data[key_index];
+            // heap->data[key_index] = aux;
             key_index = parent_index;
             parent_index = get_parent_index(heap, key_index);
         }

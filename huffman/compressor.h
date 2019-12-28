@@ -13,23 +13,19 @@ void compose_frequency_array(long long int *frequency, FILE *file) {
 }
 
 int compress(FILE *file) {
-    long long int frequency[256] = {0}, i, j = 0;
+    long long int frequency[256] = {0}, j = 0;
+    int i = 0;
     compose_frequency_array(frequency, file);
     HEAP *queue = create_heap();
+    unsigned char *key = NULL;
     for (i = 0; i < 256; ++i) {
         if (frequency[i]) {
+            key = ((unsigned char *)&i);
             printf("aqui na compress %c\n", (char) i);
-            HUFF_NODE *new_huff_node = create_huff_node(frequency[i], &i, NULL, NULL);
-            enqueue(queue, new_huff_node);
+            enqueue(queue, create_huff_node(frequency[i], key, NULL, NULL));
+            print_heap(queue);
         }
     }
-    print_heap(queue);
-    printf("%c\n", *(unsigned char *)dequeue(queue)->key);
-    printf("%c\n", *(unsigned char *)dequeue(queue)->key);
-    printf("%c\n", *(unsigned char *)dequeue(queue)->key);
-    printf("%c\n", *(unsigned char *)dequeue(queue)->key);
-    printf("%c\n", *(unsigned char *)dequeue(queue)->key);
-    printf("%c\n", *(unsigned char *)dequeue(queue)->key);
 }
 
 #endif
