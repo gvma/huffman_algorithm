@@ -19,17 +19,17 @@ int compress(FILE *file) {
     for (i = 0; i < 256; ++i) {
         if (frequency[i]) {
             printf("aqui na compress %c\n", (char) i);
-            HUFF_NODE *new_huff_node = create_huff_node(frequency[i], i, NULL, NULL);
+            HUFF_NODE *new_huff_node = create_huff_node(frequency[i], &i, NULL, NULL);
             enqueue(queue, new_huff_node);
         }
     }
     print_heap(queue);
-    printf("%c\n", *(char)dequeue(queue)->key);
-    printf("%c\n", *(char)dequeue(queue)->key);
-    printf("%c\n", *(char)dequeue(queue)->key);
-    printf("%c\n", *(char)dequeue(queue)->key);
-    printf("%c\n", *(char)dequeue(queue)->key);
-    printf("%c\n", *(char)dequeue(queue)->key);
+    printf("%c\n", *(unsigned char *)dequeue(queue)->key);
+    printf("%c\n", *(unsigned char *)dequeue(queue)->key);
+    printf("%c\n", *(unsigned char *)dequeue(queue)->key);
+    printf("%c\n", *(unsigned char *)dequeue(queue)->key);
+    printf("%c\n", *(unsigned char *)dequeue(queue)->key);
+    printf("%c\n", *(unsigned char *)dequeue(queue)->key);
 }
 
 #endif

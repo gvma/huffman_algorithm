@@ -35,7 +35,6 @@ void test_enqueue() {
     CU_ASSERT_EQUAL(1, heap->size);
     CU_ASSERT_EQUAL(NULL, heap->data[1]->left);
     CU_ASSERT_EQUAL(NULL, heap->data[1]->right);
-    CU_ASSERT_EQUAL(NULL, heap->data[1]->next);
     HUFF_NODE *huff_node2 = create_huff_node(0, 'H', huff_node1, huff_node1);
     enqueue(heap, huff_node2);
     CU_ASSERT_NOT_EQUAL(NULL, heap->data[2]);
@@ -47,7 +46,6 @@ void test_enqueue() {
     CU_ASSERT(heap->data[2]->left != NULL);
     CU_ASSERT_EQUAL(huff_node1, heap->data[2]->left);
     CU_ASSERT_EQUAL(huff_node1, heap->data[2]->right);
-    CU_ASSERT_NOT_EQUAL(huff_node1, heap->data[2]->next);
     huff_node1->frequency = 100000;
     enqueue(heap, huff_node1);
     CU_ASSERT_EQUAL(100000, heap->data[1]->frequency);

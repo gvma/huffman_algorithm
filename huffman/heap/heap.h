@@ -87,10 +87,11 @@ void max_heapify(HEAP *heap, int i) {
 }
 
 void print_heap(HEAP *queue) {
+    printf("null: %d\n", queue->size);
     int i;
     printf("Printando Fila: \n");
     for (i = 0; i < queue->size; ++i) {
-        printf("%s -> ", queue->data[i]->key);
+        printf("%c -> ", *(unsigned char *)queue->data[i]->key);
     }
     printf("\n");
 }
@@ -106,7 +107,7 @@ HUFF_NODE *dequeue(HEAP *heap) {
         heap->data[1] = heap->data[heap->size];
         --heap->size;
         max_heapify(heap, 1);
-        printf("DENTRO DA DEQUEUE %c\n", *(char *)heap->data[2]->key);
+        printf("DENTRO DA DEQUEUE %c\n", *(unsigned char *)heap->data[2]->key);
         return item;
     }
 }
