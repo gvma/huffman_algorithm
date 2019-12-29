@@ -1,6 +1,6 @@
-HUFF = huff_tree/huff_tree.h
-HEAP = heap/heap.h
-HASH = hash/hash.h
+HUFF = huff_tree/huff_tree.h huff_tree/huff_tree.c
+HEAP = heap/heap.h heap/heap.c
+HASH = hash/hash.h hash/hash.c
 HEADER = header/header.h
 MAIN = main.c
 TESTS = test/heap_test.c

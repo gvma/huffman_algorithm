@@ -2,24 +2,31 @@
 #define huff_tree_h
 
 #include "../header/header.h"
-
-typedef struct huff_node HUFF_NODE;
+#include "../hash/hash.h"
 
 struct huff_node {
     long long int frequency;
-    void *key;
-    HUFF_NODE *next, *right, *left;
+    unsigned char key;
+    HUFF_NODE *right, *left;
 };
 
-HUFF_NODE *create_huff_node(long long int frequency, unsigned char key, HUFF_NODE *left, HUFF_NODE *right) {
-    HUFF_NODE *new_huff_node = (HUFF_NODE *)malloc(sizeof(HUFF_NODE));
-    // unsigned char *ch = (unsigned char *)&key;
-    new_huff_node->frequency = frequency;
-    new_huff_node->key = &key;
-    new_huff_node->left = left;
-    new_huff_node->right = right;
-    printf("na chn: %c\n", *(unsigned char *)new_huff_node->key);
-    return new_huff_node;
-}
+typedef struct huff_node HUFF_NODE;
+
+/** @param root: the huffman tree root*/
+void print_huff_tree(HUFF_NODE *root);
+
+/** @param root: the node that will be compared if it is a leaf*/
+bool is_leaf(HUFF_NODE *root);
+
+// void bytes_mapping(HUFF_NODE *root, HASH_TABLE *hash_table, FILE *compressed_file, unsigned char mapping, int compressed_length) {
+    
+// }
+
+/** @param frequency: a number that represents the frequency of a byte in the file*/
+/** @param key: the byte that appeared in the file*/
+/** @param left: the left child of the huffman node*/
+/** @param right: the right child of the huffman node*/
+/** @return returns a huffman node with the parameters above*/
+HUFF_NODE *create_huff_node(long long int frequency, unsigned char key, HUFF_NODE *left, HUFF_NODE *right);
 
 #endif
