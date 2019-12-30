@@ -57,7 +57,6 @@ void min_heapify(HEAP *queue, int i) {
 
 void print_heap(HEAP *queue) {
     int i;
-    printf("Printando Fila: \n");
     for (i = 1; i <= queue->size; ++i) {
         printf("(%c, %lld) -> ", queue->data[i]->key, queue->data[i]->frequency);
     }
@@ -86,7 +85,6 @@ void enqueue(HEAP *queue, HUFF_NODE *item) {
         int parent_index = get_parent_index(queue, key_index);
         while (parent_index >= 1 && queue->data[key_index]->frequency < queue->data[parent_index]->frequency) {
             swap(&queue->data[key_index], &queue->data[parent_index]);
-            printf("Ta entrando aqui dentro?\n");
             key_index = parent_index;
             parent_index = get_parent_index(queue, key_index);
         }

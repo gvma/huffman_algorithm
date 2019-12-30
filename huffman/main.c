@@ -1,6 +1,6 @@
 #include "header/header.h"
 #include "heap/heap.h"
-#include "compressor.h"
+#include "compressor/compressor.h"
 
 FILE *get_file(char *file_path) {
     FILE *f = fopen(file_path, "rb");

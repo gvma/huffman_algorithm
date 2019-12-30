@@ -5,6 +5,7 @@
 #include "../huff_tree/huff_tree.h"
 
 typedef struct heap HEAP;
+typedef struct huff_node HUFF_NODE;
 
 struct heap {
     HUFF_NODE *data[257]; // an array that will store all elements of the heap
@@ -56,6 +57,5 @@ HUFF_NODE *dequeue(HEAP *queue);
 /** @param queue: a pointer to the queue */
 /** @param item: an item that you want to enqueue in the queue*/
 void enqueue(HEAP *queue, HUFF_NODE *item);
-
 
 #endif
