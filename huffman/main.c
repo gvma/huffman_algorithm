@@ -29,7 +29,7 @@ int main() {
                 continue;
             }
             printf("Opening %s!\nComposing frequency of bytes!\n", file_path);
-            compress(file);
+            compression(file, file_path);
             printf("\n");
             fclose(file);
         }

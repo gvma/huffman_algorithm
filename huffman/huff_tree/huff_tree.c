@@ -1,10 +1,18 @@
 #include "huff_tree.h"
 
-void print_huff_tree(HUFF_NODE *root) {
+void print_huff_tree(HUFF_NODE *root, FILE *compressed_file) {
     if (root) {
-        printf("%c", root->key);
-        print_huff_tree(root->left);
-        print_huff_tree(root->right);
+        if (is_leaf(root)) {
+            if (root->key == '*' || root->key == '\\') {
+                fprintf(compressed_file, "\\%c", root->key);
+            } else {
+                fprintf(compressed_file, "%c", root->key);
+            }
+        } else {
+            fprintf(compressed_file, "%c", root->key);
+            print_huff_tree(root->left, compressed_file);
+            print_huff_tree(root->right, compressed_file);
+        }
     }
 }
 
@@ -12,12 +20,9 @@ bool is_leaf(HUFF_NODE *root) {
     return root->left == NULL && root->right == NULL;
 }
 
-void bytes_mapping(HUFF_NODE *root, HASH_TABLE *hash_table, FILE *compressed_file, unsigned char mapping, int depth, int *trash_size) {
+void bytes_mapping(HUFF_NODE *root, HASH_TABLE *hash_table, FILE *compressed_file, unsigned short mapping, int depth, int *trash_size) {
     if (root) {
         if (is_leaf(root)) {
-            if (root->key == '*' || root->key == '\\') {
-
-            }
             hash_table->new_mapping[root->key][0] = depth;
             hash_table->new_mapping[root->key][1] = mapping >> 8;
             hash_table->new_mapping[root->key][2] = mapping;
