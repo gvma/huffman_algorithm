@@ -12,11 +12,11 @@ HASH_TABLE *create_hash_table() {
     return hash_table;
 }
 
-HASH_TABLE *generate_new_mapping(HUFF_NODE *root, FILE *compressed_file, int *trash_size) {
+HASH_TABLE *generate_new_mapping(HUFF_NODE *root, int *trash_size) {
     HASH_TABLE *hash_table = create_hash_table();
     unsigned short mapping = 0;
     int compressed_length = 0;
-    bytes_mapping(root, hash_table, compressed_file, mapping, compressed_length, trash_size);
+    bytes_mapping(root, hash_table, mapping, compressed_length, trash_size);
     return hash_table;
 }
 

@@ -92,7 +92,7 @@ void compression(FILE *file, char *file_path) {
 
     FILE *compressed_file = fopen(file_path, "w");
     int trash_size = 0;
-    HASH_TABLE *mapping = generate_new_mapping(root_node, compressed_file, &trash_size);
+    HASH_TABLE *mapping = generate_new_mapping(root_node, &trash_size);
     trash_size = 8 - (trash_size % 8);
     if (trash_size == 8) {
         trash_size = 0;

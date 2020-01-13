@@ -15,6 +15,11 @@ struct huff_node {
     HUFF_NODE *right, *left;
 };
 
+/** @param pre_order_tree: an array that holds the pre order tree that existed in the header*/
+/** @param position: a pointer to the position*/
+/** @return returns the new huffman tree*/
+HUFF_NODE *generate_tree(char *pre_order_tree, int *position);
+
 /** @param root: the huffman tree root*/
 /** @param compressed_file: the file that the tree will be printed*/
 void print_huff_tree(HUFF_NODE *root, FILE *compressed_file);
@@ -24,11 +29,10 @@ bool is_leaf(HUFF_NODE *root);
 
 /** @param root: the node of the recursive function*/
 /** @param hash_table: where the new mapping will be stored*/
-/** @param compressed_file: the file that will have the new mapping wrote*/
 /** @param mapping: the current mapping while traversing the tree*/
 /** @param compressed_length: the actual length of the new mapping*/
 /** @param trash_size: the reference of a var that holds the trash size*/
-void bytes_mapping(HUFF_NODE *root, HASH_TABLE *hash_table, FILE *compressed_file, unsigned short mapping, int compressed_length, int *trash_size);
+void bytes_mapping(HUFF_NODE *root, HASH_TABLE *hash_table, unsigned short mapping, int compressed_length, int *trash_size);
 
 /** @param frequency: a number that represents the frequency of a byte in the file*/
 /** @param key: the byte that appeared in the file*/

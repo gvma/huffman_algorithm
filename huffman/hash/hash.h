@@ -15,10 +15,9 @@ struct hash_table {
 HASH_TABLE *create_hash_table();
 
 /** @param root: the root created after dequeueing nodes*/
-/** @param compressed_file: the file to be compressed*/
 /** @param trash_size: the reference to a variable that holds the trash size*/
 /** @return returns the new mapping in a hash table*/
-HASH_TABLE *generate_new_mapping(HUFF_NODE *root, FILE *compressed_file, int *trash_size);
+HASH_TABLE *generate_new_mapping(HUFF_NODE *root, int *trash_size);
 
 /** @param hash_table: the hash table to be printed*/
 void print_hash_table(HASH_TABLE *hash_table);
