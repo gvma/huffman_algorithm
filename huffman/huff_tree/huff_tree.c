@@ -49,7 +49,7 @@ void get_huff_tree_size(HUFF_NODE *root, long long int *huff_tree_size) {
     if (root) {
         if (is_leaf(root)) {
             if (root->key == '*' || root->key == '\\') {
-                huff_tree_size += 1;
+                *huff_tree_size += 1;
             }
         }
         *huff_tree_size += 1;
