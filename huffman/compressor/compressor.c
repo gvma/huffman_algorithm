@@ -35,7 +35,9 @@ void compress(FILE *file, FILE *compressed_file, HASH_TABLE *mapping, int trash_
     }
     compressed_byte >>= 1;
     compressed_byte <<= trash_size;
-    fprintf(compressed_file, "%c", compressed_byte);
+    if (trash_size != 0) {
+	    fprintf(compressed_file, "%c", compressed_byte);
+    }
 }
 
 void compose_frequency_array(long long int *frequency, FILE *file) {
